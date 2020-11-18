@@ -4,6 +4,8 @@
     Author     : entra21
 --%>
 
+<%@page import="java.sql.Date"%>
+<%@page import="modelos.Locacao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,8 +17,18 @@
         <h1>Hello World!</h1>
          <%
           String idcarro = request.getParameter("idcarro");
-          out.write(idcarro);
+          String cpfcliente = request.getParameter("cpfcliente");
+          String dataretirada = request.getParameter("dataretirada");
+          
+         Locacao locacao = new Locacao();
+         locacao.setIdcarro(Integer.parseInt(idcarro));
+         locacao.setCfpcliente(cpfcliente);
+         locacao.setData(Date.valueOf(dataretirada));
+         locacao.setDataretirada(Date.valueOf(dataretirada));
          
+         if(locacao.salvar()){
+             out.write("Locação registrada com sucesso");
+         }
         %>
 
     </body>

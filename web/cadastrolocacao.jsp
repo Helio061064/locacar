@@ -4,6 +4,7 @@
     Author     : entra21
 --%>
 
+<%@page import="modelos.Cliente"%>
 <%@page import="java.util.List"%>
 <%@page import="modelos.Carro"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,23 +16,39 @@
     </head>
     <body>
         <h1>Cadastro locação</h1>
-        <hr />
+         <hr />
+        <%
+          Carro carro = new Carro();
+          List<Carro> carros = carro.consultar();
+          
+          Cliente cliente = new Cliente();
+          List<Cliente> clientes = cliente.consultar();
+
+        %>  
         
-        <%Carro carro = new Carro();
-          List<Carro> carros = carro.consultar();%>
-            <form action="recebedadoslocacao.jsp"method="POST">
-            <label>Selecione o carro para locação</label>
+        <form action="recebedadoslocacao.jsp" method="POST">
+           <label>Selecione o carro para locação </label>
             <select name="idcarro">
-        
-                <%for(Carro c:carros){%>      
-        <option value="<%out.write(""+c.getId());%>">
-        
-            <%out.write(c.getPlaca() + "-"+c.getModelo());%>
-        </option>
-        <%}%>
+                <% for(Carro c: carros){ %>
+                   <option value="<%out.write(""+c.getId());%>">
+                       <% out.write(c.getPlaca() + " - " + c.getModelo()); %>
+                   </option>
+                <%}%>
+            </select> 
+            <br />
+            <label>Selecione o cliente para locação </label>
+            <select name="cpfcliente">
+                <%for(Cliente c: clientes){%>
+                    <option value="<%out.write(c.getCpfcliente());%>">
+                        <% out.write(c.getNome() + "-"+c.getNome()); %>
+                    </option>
+                <%}%>
             </select>
+            <br />
+            <label>Informe a data</label>
+            <input type="date" name="dataretirada" />
             <hr />
-            <input type="submit"value="Salvar"/>
-            </form>
+            <input type="submit" value="Salvar" /> 
+        </form>        
     </body>
 </html>

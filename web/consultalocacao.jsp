@@ -18,7 +18,7 @@
     </head>
     <body>
         <%
-          List<Locacao> locacoes = new ArrayList<>();
+          List<Locacao> locacoes = null;
           String cpfcliente = request.getParameter("cpfcliente");
           if(cpfcliente != null){
             Locacao locacao = new Locacao();
@@ -37,7 +37,7 @@
                 <thead>
                   <th>Id</th> 
                   <th>Carro</th>
-                  <th>Cliente</th>
+                  <th>cliente</th>
                   <th>Data</th>
                   <th>Data Retirada</th>
                 </thead>
