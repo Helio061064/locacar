@@ -16,9 +16,9 @@
     <body>
         <%
           Locacao locacao = new Locacao();
-          ResultSet rs = locacao.consultarInner();
-        %>
-        <h1>Hello World!</h1>
+          ResultSet rs = locacao.consultarInner();    
+%>
+        <h1>Consulta INNER Locacao</h1>
         <hr />
         <table>
             <thead>

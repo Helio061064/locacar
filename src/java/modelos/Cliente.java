@@ -14,7 +14,6 @@ import java.util.List;
 import utils.Conexao;
 
 public class Cliente {
-    private int idcliente;
     private String cpfcliente;
     private String nome;
     private String email;
@@ -56,7 +55,7 @@ public class Cliente {
            stm.setString(2, this.nome);
            stm.setString(3, this.email);
            stm.setString(4, this.numeroCartao);
-           stm.setInt(5, this.getIdcliente());
+           
            
            
            stm.execute();           
@@ -70,7 +69,7 @@ public class Cliente {
     
     public Cliente consultar(int idcliente){
       Connection con = Conexao.conectar();
-      String sql = "select idcliente, cpfcliente, nome, email, numeroCartao"
+      String sql = "select  cpfcliente, nome, email, numeroCartao"
                  + " from cliente where idcliente = ?";
       Cliente cliente = null;
        try {
@@ -79,7 +78,6 @@ public class Cliente {
            ResultSet rs = stm.executeQuery();
            if(rs.next()){
              cliente = new Cliente();
-             cliente.setIdcliente(rs.getInt("idcliente"));
              cliente.setCpfcliente(rs.getString("cpfcliente"));
              cliente.setNome(rs.getString("nome"));
              cliente.setEmail(rs.getString("email"));
@@ -95,7 +93,7 @@ public class Cliente {
         List<Cliente> lista = new ArrayList<>();
       
         Connection con = Conexao.conectar();
-        String sql = "select idcliente, cpfcliente, nome, email,"
+        String sql = "select  cpfcliente, nome, email,"
               + " numerocartao"
               + " from cliente";
       
@@ -105,7 +103,6 @@ public class Cliente {
            
            while(rs.next()){
              Cliente cliente = new Cliente();
-             cliente.setIdcliente(rs.getInt("idcliente"));
              cliente.setCpfcliente(rs.getString("cpfcliente"));
              cliente.setNome(rs.getString("nome"));
              cliente.setEmail(rs.getString("email"));
@@ -125,7 +122,7 @@ public class Cliente {
               sql +=" where idcliente = ?";
        try {
            PreparedStatement stm = con.prepareStatement(sql);
-           stm.setInt(1, this.idcliente);
+           stm.setString(1, this.cpfcliente);
            stm.execute();           
        } catch (SQLException ex) {
            System.out.println("Erro: " + ex.getMessage());
@@ -157,14 +154,6 @@ public class Cliente {
 
     public void setNumeroCartao(String numeroCartao) {
         this.numeroCartao = numeroCartao;
-    }
-
-    public int getIdcliente() {
-        return idcliente;
-    }
-
-    public void setIdcliente(int idcliente) {
-        this.idcliente = idcliente;
     }
 
     public String getCpfcliente() {

@@ -16,7 +16,7 @@
         <h1>Excluir Cliente</h1>
         <hr />
         <%
-          String idcliente = request.getParameter("idcliente");
+          String idcliente = request.getParameter("cpfcliente");
           Cliente c = new Cliente();
           if (idcliente != null){
               c = c.consultar(Integer.parseInt(idcliente));

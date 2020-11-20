@@ -18,7 +18,7 @@
     </head>
     <body>
         <%
-          List<Locacao> locacoes = null;
+          List<Locacao> locacoes = new ArrayList<>();
           String cpfcliente = request.getParameter("cpfcliente");
           if(cpfcliente != null){
             Locacao locacao = new Locacao();
@@ -40,6 +40,7 @@
                   <th>cliente</th>
                   <th>Data</th>
                   <th>Data Retirada</th>
+                  <th>Ações</th> 
                 </thead>
                 <tbody>
                     <%for(Locacao loc: locacoes){%>
@@ -49,6 +50,7 @@
                             <td><%out.write(loc.getCfpcliente());%></td>
                             <td><%out.write(String.valueOf(loc.getData()));%></td>
                             <td><%out.write(String.valueOf(loc.getDataretirada()));%></td>
+                            <td><%out.write("<a href=cadastrodevolucao.jsp?idlocacao="+loc.getId()+">Devolver</a>");%></td>
                         </tr>
                     <%}%>
                 </tbody>    

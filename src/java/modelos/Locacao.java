@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,24 +28,36 @@ public class Locacao {
   private Date dataretirada;
   private Date data;  
   
-  public ResultSet consultarInner(){
+  public ResultSet consultarInner(int id){
       Connection con = Conexao.conectar();
-      String sql = "select l.id, l.idcarro, c.placa, c.modelo," +
+      String sql = "select l.id, l.idcarro,c.placa, c.modelo, \n" +
+                   "       l.cpfcliente,cli.nome, l.data, \n" +
+                   "       l.dataretirada, l.datadevolucao       \n" +
+                   "from locacao l , carro c, cliente cli  \n" +
+                   "where l.idcarro = c.id\n" +
+                   "and l.cpfcliente = cli.cpf";
+      ResultSet rs = null;
+      try {
+          PreparedStatement stm = con.prepareStatement(sql);
+          rs = stm.executeQuery();
+      } catch (SQLException ex) {
+          Logger.getLogger(Locacao.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      return rs;
+          
+      }
+  
+ /* public Locacao consultar(int idlocacao){
+      Locacao locacao = new Locacao();
+      ResultSet rs = null;
+     String sql = "select l.id, l.idcarro, c.placa, c.modelo," +
                    "       l.cpfcliente, cli.nome, l.data, " +
                    "       l.dataretirada, l.datadevolucao " +
                    "from locacao l , carro c, cliente cli " +
                    "where l.locacao = c.id " +
                    "and l.cpfcliente = cli.cpf";
-      ResultSet rs = null;
-      try{
-          PreparedStatement stm = con.prepareStatement(sql);
-          rs = stm.executeQuery();
-      }catch (SQLException ex){
-           System.out.println("Erro: " + ex.getMessage());
-      }
-      return rs;
-  }
-
+          return rs;
+  }*/
   public List<Locacao> consultar(String cliente){
      List<Locacao> lista = new ArrayList<>();
      Connection con = Conexao.conectar();     
@@ -69,6 +83,30 @@ public class Locacao {
       }     
      return lista;
   }
+  public boolean alterar(){
+        Connection con = Conexao.conectar();
+        String sql = "update locacao set "+
+                      "idcarro = ?, "+
+                      "cpfcliente = ?, "+
+                      "dataretirada=?,"+
+                      "data = ?,"+
+                      "datadevolucao = ? "+
+                      "where id = ?";
+      try {
+          PreparedStatement stm = con.prepareStatement(sql);
+          stm.setInt(1, this.idcarro);
+          stm.setString(2, this.cfpcliente);
+          stm.setDate(3, this.dataretirada);
+          stm.setDate(4, this.data);
+          stm.setDate(5, this.datadevolucao);
+          stm.setInt(6, this.id);
+          
+          stm.execute();
+      } catch (SQLException ex) {
+          System.out.println("Erro: " + ex.getMessage());
+      }
+        return true;
+    }
     public boolean salvar(){
         Connection con = Conexao.conectar();
         String sql = "insert into locacao(idcarro,cpfcliente,dataretirada,data)";

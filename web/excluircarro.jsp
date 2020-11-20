@@ -28,5 +28,7 @@
                 }
             }
         %>
+         <hr />
+       <a href="consultacarro.jsp">Consulta carros</a> 
     </body>
 </html>

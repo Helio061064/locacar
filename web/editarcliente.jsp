@@ -26,7 +26,7 @@
             <label> Id Cliente </label>
             <input type="text" name="idcliente" 
                    readonly="true"
-                   value="<%out.write(""+clie.getIdcliente());%>"/>
+                   value="<%out.write(""+clie.getCpfcliente());%>"/>
             <br />
             <label>Cpf Cliente</label>
             <input type="text" name="cpfcliente" 

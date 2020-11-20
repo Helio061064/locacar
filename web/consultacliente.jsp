@@ -22,8 +22,7 @@
         %>
         <table>
             <thead>
-              <th>Idcliente</th>
-              <th>Cpfcliente</th>
+              <th>cpfcliente</th>            
               <th>Nome</th>
               <th>Email</th>
               <th>Numerocartao</th>
@@ -31,16 +30,15 @@
             </thead>
             <tbody>
                 <% for(Cliente c : clientes) {%>
-                   <tr>
-                       <td><% out.write(""+c.getIdcliente()); %></td>
+                   <tr>      
                         <td><% out.write(c.getCpfcliente()); %></td>
                         <td><% out.write(c.getNome()); %></td>
                         <td><% out.write(c.getEmail()); %></td>
                         <td><% out.write(c.getNumeroCartao()); %></td>
   
-                        <td><%out.write("<a href=editarcliente.jsp?idcliente="+c.getIdcliente()+">Editar</a>");%></td>                          
+                        <td><%out.write("<a href=editarcliente.jsp?cpfcliente="+c.getCpfcliente()+">Editar</a>");%></td>                          
               
-                        <td><%out.write("<a href=excluircliente.jsp?idcliente="+c.getIdcliente()+">Excluir</a>");%></td>
+                        <td><%out.write("<a href=excluircliente.jsp?cpfcliente="+c.getCpfcliente()+">Excluir</a>");%></td>
                     </tr>   
                 <%}%>
             </tbody>
